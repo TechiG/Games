@@ -88,6 +88,9 @@ export const ui = {
   setResultsCountdown(sec) {
     if (this.current !== 'results') return;
     const host = this.game.isHost();
+    const key = sec + ':' + host;
+    if (this._cdKey === key) return;
+    this._cdKey = key;
     $('res-again').classList.toggle('hidden', !host);
     $('res-msg').textContent = `Prochaine manche dans ${sec} s…`;
   },

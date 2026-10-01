@@ -98,6 +98,14 @@ js/powers.js · scores.js · audio.js · input.js · ui.js · config.js
 vendor/         three.js (r170) et PeerJS 1.5 (copies locales, MIT)
 ```
 
+## Tests
+
+```bash
+npm test   # (ou : node tests/track.test.mjs)
+```
+
+Vérifie que la piste générée est **identique pour tous les joueurs** (même graine) et que **chaque saut de plateforme à plateforme est réalisable** avec la vraie physique du jeu, jusqu'à la difficulté maximale.
+
 ## Licences
 
 Code du jeu : voir le dépôt. `vendor/three.module.min.js` (MIT, © three.js authors) et `vendor/peerjs.min.js` (MIT, © PeerJS authors).

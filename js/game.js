@@ -94,6 +94,12 @@ export class Game {
     document.addEventListener('visibilitychange', () => { this.sendPos(true); });
     window.addEventListener('resize', () => this.world.resize());
 
+    // les boutons du HUD ne doivent jamais garder le focus (Espace/Entrée les redéclencheraient en plein jeu)
+    for (const id of ['power-slot', 'btn-sb', 'btn-mute', 'btn-pause']) {
+      const el = $(id);
+      el.addEventListener('mousedown', (e) => e.preventDefault());
+      el.addEventListener('click', () => el.blur());
+    }
     $('power-slot').addEventListener('click', () => this.usePower());
     $('btn-sb').addEventListener('click', () => this.setLive(!this.liveOpen));
     $('btn-mute').addEventListener('click', () => this.toggleMute());
@@ -144,7 +150,6 @@ export class Game {
   _showHud(on) {
     $('hud').classList.toggle('hidden', !on);
     $('touch').classList.toggle('hidden', !(on && this.input.isTouch));
-    $('hud-hint').style.display = 'none';
   }
 
   startSolo() {

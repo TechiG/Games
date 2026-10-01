@@ -82,7 +82,7 @@ export class Net {
     return new Promise((resolve, reject) => {
       if (code.length < 4) { reject(new Error('Code de salle invalide')); return; }
       let done = false;
-      const fail = (e) => { if (done) return; done = true; clearTimeout(timer); this._destroyPeer(); reject(e instanceof Error ? e : this._explain(e)); };
+      const fail = (e) => { if (done) return; done = true; clearTimeout(timer); this._destroyPeer(); reject(e && e.type ? this._explain(e) : e instanceof Error ? e : this._explain(e)); };
       const ok = () => { if (done) return; done = true; clearTimeout(timer); resolve(code); };
       const timer = setTimeout(() => fail(new Error('Connexion impossible (délai dépassé). Vérifie le code et ta connexion.')), 20000);
       this._joinResolve = ok; this._joinFail = fail;

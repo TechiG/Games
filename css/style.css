@@ -137,7 +137,6 @@ table.keys td { padding: 4px 6px 4px 0; vertical-align: top; font-size: 13px; }
 #live-board h4 { margin: 6px 0 2px; font-size: 13px; opacity: .8; text-transform: uppercase; letter-spacing: 1px; }
 #live-board .rk { display: flex; justify-content: space-between; gap: 10px; }
 #live-board .rk.me { color: #ffe36e; }
-#hud-hint { position: absolute; bottom: 8px; right: 12px; font-size: 12px; opacity: .8; font-weight: 700; display: none; }
 
 /* ---------- tactile ---------- */
 #touch { position: fixed; inset: 0; z-index: 9; touch-action: none; }

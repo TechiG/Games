@@ -224,11 +224,17 @@ export class World {
       }),
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     });
-    this.bannerTex = canvasTex(256, (x, s) => {
-      x.fillStyle = '#ffcc33'; x.fillRect(0, 0, s, s);
-      x.fillStyle = '#3a2a00'; x.font = `bold ${s * 0.2}px sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle';
-      x.fillText('CHECKPOINT', s / 2, s / 2);
-    });
+    const bc = document.createElement('canvas');
+    bc.width = 512; bc.height = 96;
+    {
+      const x = bc.getContext('2d');
+      x.fillStyle = '#ffcc33'; x.fillRect(0, 0, 512, 96);
+      x.fillStyle = '#fff'; for (let i = 0; i < 512; i += 64) x.fillRect(i, 0, 32, 10), x.fillRect(i + 32, 86, 32, 10);
+      x.fillStyle = '#3a2a00'; x.font = 'bold 62px sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillText('CHECKPOINT', 256, 50);
+    }
+    this.bannerTex = new THREE.CanvasTexture(bc);
+    this.bannerTex.colorSpace = THREE.SRGBColorSpace;
     this.bannerMat = new THREE.MeshBasicMaterial({ map: this.bannerTex, side: THREE.DoubleSide });
   }
 
@@ -325,7 +331,7 @@ export class World {
           g.add(pole);
         }
         const ban = new THREE.Mesh(this.unitPlane, this.bannerMat);
-        ban.scale.set(p.w - 0.6, 1.4, 1);
+        ban.scale.set(Math.min(p.w - 0.6, 8), (Math.min(p.w - 0.6, 8) * 96) / 512, 1);
         ban.position.set(0, 4.5, -p.d / 2 + 0.4);
         g.add(ban);
       }
